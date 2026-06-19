@@ -76,7 +76,7 @@ export default async function NotFound() {
             </Reveal>
           )}
 
-          {stacks.length > 0 && (
+          {/* {stacks.length > 0 && (
             <Reveal delay={0.3}>
               <div className="mt-10 flex flex-wrap items-center justify-center gap-2">
                 {stacks.map((s) => (
@@ -91,7 +91,7 @@ export default async function NotFound() {
                 ))}
               </div>
             </Reveal>
-          )}
+          )} */}
         </div>
       </main>
 
