@@ -67,7 +67,7 @@ export default async function NotFound() {
               <div className="mt-8 flex justify-center">
                 <Link
                   href={`/${defaultStack}`}
-                  className="flex items-center justify-center gap-2 rounded-xl bg-[#43e1f0] px-7 py-3.5 text-sm font-semibold text-zinc-950 shadow-[0_8px_24px_-8px_rgba(67,225,240,0.6)] transition-all duration-300 hover:bg-[#2fd6e8]"
+                  className="flex items-center justify-center gap-2 rounded-xl bg-[var(--accent)] px-7 py-3.5 text-sm font-semibold text-zinc-950 shadow-[0_8px_24px_-8px_color-mix(in_srgb,var(--accent)_60%,transparent)] transition-all duration-300 hover:bg-[var(--accent-strong)]"
                 >
                   Open {stacks[0]?.shortName} portfolio
                   <ArrowUpRight className="h-4 w-4" />

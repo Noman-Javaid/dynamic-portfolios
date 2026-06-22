@@ -11,6 +11,7 @@ const ITEMS = [
   { href: "/admin/tech", label: "Tech Categories" },
   { href: "/admin/experience", label: "Experience" },
   { href: "/admin/projects", label: "Projects" },
+  { href: "/admin/themes", label: "Themes" },
   { href: "/admin/generate", label: "✦ Generate with AI", exact: true },
 ];
 

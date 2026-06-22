@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import { Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
-import { getProfile } from "@server/lib/queries";
+import type { CSSProperties } from "react";
+import { getProfile, getActiveThemeTokens } from "@server/lib/queries";
+import { themeStyle } from "@/lib/theme";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -25,18 +27,28 @@ export async function generateMetadata(): Promise<Metadata> {
       };
     }
   } catch {
-
   }
   return { title: "Portfolio" };
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  let style: Record<string, string>;
+  try {
+    style = themeStyle(await getActiveThemeTokens());
+  } catch {
+    style = themeStyle();
+  }
+
   return (
-    <html lang="en" className={`${inter.variable} ${jetbrainsMono.variable}`}>
+    <html
+      lang="en"
+      className={`${inter.variable} ${jetbrainsMono.variable}`}
+      style={style as CSSProperties}
+    >
       <body>{children}</body>
     </html>
   );

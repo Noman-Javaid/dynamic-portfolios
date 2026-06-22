@@ -55,7 +55,7 @@ export function StackNav({ stack, person }: { stack: Stack; person: Person }) {
               className="group relative rounded-full px-3.5 py-1.5 text-sm text-zinc-500 transition-colors hover:text-zinc-950"
             >
               {s.label}
-              <span className="absolute inset-x-3.5 -bottom-px h-0.5 origin-left scale-x-0 rounded-full bg-[#43e1f0] transition-transform duration-300 group-hover:scale-x-100" />
+              <span className="absolute inset-x-3.5 -bottom-px h-0.5 origin-left scale-x-0 rounded-full bg-[var(--accent)] transition-transform duration-300 group-hover:scale-x-100" />
             </Link>
           ))}
         </div>
@@ -63,7 +63,7 @@ export function StackNav({ stack, person }: { stack: Stack; person: Person }) {
         <Magnetic>
           <a
             href={`mailto:${person.email}`}
-            className="inline-block rounded-full bg-[#43e1f0] px-5 py-2 text-sm font-semibold text-zinc-950 shadow-[0_6px_18px_-8px_rgba(67,225,240,0.7)] transition-all duration-300 hover:bg-[#2fd6e8]"
+            className="inline-block rounded-full bg-[var(--accent)] px-5 py-2 text-sm font-semibold text-zinc-950 shadow-[0_6px_18px_-8px_color-mix(in_srgb,var(--accent)_70%,transparent)] transition-all duration-300 hover:bg-[var(--accent-strong)]"
           >
             Let&apos;s Talk
           </a>

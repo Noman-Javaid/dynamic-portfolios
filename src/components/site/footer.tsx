@@ -18,7 +18,7 @@ export function Footer({
           <div className="max-w-sm">
             <Link href={homeHref} className="text-xl font-bold tracking-tight text-zinc-950">
               {person.name}
-              <span className="text-[#14b6cc]">.</span>
+              <span className="text-[var(--accent-strong)]">.</span>
             </Link>
             <p className="mt-4 text-sm leading-relaxed text-zinc-600">
               {person.tagline}

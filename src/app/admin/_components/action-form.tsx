@@ -40,7 +40,7 @@ export function ActionForm({
         <button
           type="submit"
           disabled={pending}
-          className="rounded-lg bg-[#43e1f0] px-4 py-2 text-sm font-semibold text-zinc-950 transition-colors hover:bg-[#2fd6e8] disabled:opacity-60"
+          className="rounded-lg bg-[var(--accent)] px-4 py-2 text-sm font-semibold text-zinc-950 transition-colors hover:bg-[var(--accent-strong)] disabled:opacity-60"
         >
           {pending ? "Saving…" : submitLabel}
         </button>

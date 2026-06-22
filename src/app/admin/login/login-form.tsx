@@ -29,7 +29,7 @@ export function LoginForm() {
               type="email"
               autoComplete="username"
               required
-              className="w-full rounded-lg border border-zinc-300 bg-white px-3 py-2 text-sm text-zinc-900 outline-none focus:border-[#43e1f0] focus:ring-2 focus:ring-[#43e1f0]/30"
+              className="w-full rounded-lg border border-zinc-300 bg-white px-3 py-2 text-sm text-zinc-900 outline-none focus:border-[var(--accent)] focus:ring-2 focus:ring-[color-mix(in_srgb,var(--accent)_30%,transparent)]"
             />
           </label>
 
@@ -42,7 +42,7 @@ export function LoginForm() {
               type="password"
               autoComplete="current-password"
               required
-              className="w-full rounded-lg border border-zinc-300 bg-white px-3 py-2 text-sm text-zinc-900 outline-none focus:border-[#43e1f0] focus:ring-2 focus:ring-[#43e1f0]/30"
+              className="w-full rounded-lg border border-zinc-300 bg-white px-3 py-2 text-sm text-zinc-900 outline-none focus:border-[var(--accent)] focus:ring-2 focus:ring-[color-mix(in_srgb,var(--accent)_30%,transparent)]"
             />
           </label>
 
@@ -53,7 +53,7 @@ export function LoginForm() {
           <button
             type="submit"
             disabled={pending}
-            className="w-full rounded-lg bg-[#43e1f0] px-4 py-2.5 text-sm font-semibold text-zinc-950 transition-colors hover:bg-[#2fd6e8] disabled:opacity-60"
+            className="w-full rounded-lg bg-[var(--accent)] px-4 py-2.5 text-sm font-semibold text-zinc-950 transition-colors hover:bg-[var(--accent-strong)] disabled:opacity-60"
           >
             {pending ? "Signing in…" : "Sign in"}
           </button>

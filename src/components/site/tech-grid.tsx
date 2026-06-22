@@ -25,7 +25,7 @@ export function TechGrid({ tech }: TechGridProps) {
           className="card-hover group rounded-2xl glass p-6"
         >
           <div className="mb-4 flex items-center gap-3">
-            <span className="grid h-10 w-10 place-items-center rounded-xl border border-[#43e1f0]/30 bg-[#43e1f0]/10 text-[#14b6cc] transition-all duration-300 group-hover:border-[#43e1f0]/60 group-hover:shadow-[0_0_18px_-6px_rgba(67,225,240,0.7)]">
+            <span className="grid h-10 w-10 place-items-center rounded-xl border border-[color-mix(in_srgb,var(--accent)_30%,transparent)] bg-[color-mix(in_srgb,var(--accent)_10%,transparent)] text-[var(--accent-strong)] transition-all duration-300 group-hover:border-[color-mix(in_srgb,var(--accent)_60%,transparent)] group-hover:shadow-[0_0_18px_-6px_color-mix(in_srgb,var(--accent)_70%,transparent)]">
               <DynamicIcon name={cat.icon} className="h-5 w-5" />
             </span>
             <h3 className="text-[15px] font-semibold text-zinc-950">{cat.label}</h3>

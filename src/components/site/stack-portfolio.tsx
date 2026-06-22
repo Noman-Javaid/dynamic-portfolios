@@ -20,7 +20,7 @@ function SectionHeading({
   return (
     <div className="mb-12">
       <div className="flex items-center gap-4">
-        <span className="grid h-11 w-11 place-items-center rounded-xl border border-[#43e1f0]/40 bg-[#43e1f0]/10 text-[#14b6cc] shadow-[0_0_22px_-6px_rgba(67,225,240,0.65)]">
+        <span className="grid h-11 w-11 place-items-center rounded-xl border border-[color-mix(in_srgb,var(--accent)_40%,transparent)] bg-[color-mix(in_srgb,var(--accent)_10%,transparent)] text-[var(--accent-strong)] shadow-[0_0_22px_-6px_color-mix(in_srgb,var(--accent)_65%,transparent)]">
           <Icon className="h-5 w-5" />
         </span>
         <div>
@@ -32,7 +32,7 @@ function SectionHeading({
           </h2>
         </div>
       </div>
-      <div className="mt-7 h-px w-full bg-gradient-to-r from-[#43e1f0]/60 via-zinc-200 to-transparent" />
+      <div className="mt-7 h-px w-full bg-gradient-to-r from-[color-mix(in_srgb,var(--accent)_60%,transparent)] via-zinc-200 to-transparent" />
     </div>
   );
 }

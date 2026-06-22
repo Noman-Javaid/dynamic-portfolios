@@ -43,7 +43,7 @@ export function SocialLinks({
           target={l.label === "Email" ? undefined : "_blank"}
           rel="noopener noreferrer"
           aria-label={l.label}
-          className="group flex items-center justify-center w-10 h-10 rounded-xl glass text-zinc-500 transition-all duration-300 hover:-translate-y-0.5 hover:border-[#43e1f0]/50 hover:text-[#14b6cc]"
+          className="group flex items-center justify-center w-10 h-10 rounded-xl glass text-zinc-500 transition-all duration-300 hover:-translate-y-0.5 hover:border-[color-mix(in_srgb,var(--accent)_50%,transparent)] hover:text-[var(--accent-strong)]"
         >
           {l.node}
         </a>

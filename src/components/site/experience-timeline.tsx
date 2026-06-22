@@ -1,8 +1,9 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Briefcase, MapPin } from "lucide-react";
+import { Briefcase } from "lucide-react";
 import type { ExperienceItem } from "@/data/portfolio";
+import { arrangeExperience } from "@/lib/experience";
 import { staggerContainer, staggerItem } from "@/components/site/reveal";
 
 interface ExperienceTimelineProps {
@@ -10,6 +11,7 @@ interface ExperienceTimelineProps {
 }
 
 export function ExperienceTimeline({ experience }: ExperienceTimelineProps) {
+  const arranged = arrangeExperience(experience);
   return (
     <div className="relative">
 
@@ -28,10 +30,10 @@ export function ExperienceTimeline({ experience }: ExperienceTimelineProps) {
         whileInView="show"
         viewport={{ once: true, margin: "-80px" }}
       >
-        {experience.map((job, i) => (
+        {arranged.map((job, i) => (
           <motion.div key={`${job.company}-${i}`} variants={staggerItem} className="relative sm:pl-14">
 
-            <span className="absolute left-0 top-1 hidden h-11 w-11 place-items-center rounded-xl border border-[#43e1f0]/40 bg-[#43e1f0]/10 text-[#14b6cc] shadow-[0_0_22px_-6px_rgba(67,225,240,0.6)] sm:grid">
+            <span className="absolute left-0 top-1 hidden h-11 w-11 place-items-center rounded-xl border border-[color-mix(in_srgb,var(--accent)_40%,transparent)] bg-[color-mix(in_srgb,var(--accent)_10%,transparent)] text-[var(--accent-strong)] shadow-[0_0_22px_-6px_color-mix(in_srgb,var(--accent)_60%,transparent)] sm:grid">
               <Briefcase className="h-4 w-4" />
             </span>
 
@@ -45,13 +47,6 @@ export function ExperienceTimeline({ experience }: ExperienceTimelineProps) {
                   {job.period}
                 </span>
               </div>
-
-              {job.location && (
-                <p className="mt-2 flex items-center gap-1.5 text-xs text-zinc-400">
-                  <MapPin className="h-3.5 w-3.5" />
-                  {job.location}
-                </p>
-              )}
 
               <ul className="mt-4 space-y-2.5">
                 {job.points.map((p, j) => (

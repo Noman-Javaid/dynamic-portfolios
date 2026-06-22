@@ -4,20 +4,20 @@
    Professional light theme — near-white + a single accent
    ============================================================ */
 :root {
+  /* Theme primitives — overridden at runtime by the active theme (see layout). */
   --base: #ffffff;
-  --base-2: #f6f6f7;
   --panel: #ffffff;
-  --border: rgba(9, 9, 11, 0.08);
-  --border-strong: rgba(9, 9, 11, 0.16);
-
-  /* single brand accent — cyan */
   --accent: #43e1f0;
   --accent-strong: #14b6cc;
-  --accent-soft: rgba(67, 225, 240, 0.16);
-
   --text: #0a0a0a;
-  --text-muted: rgba(10, 10, 10, 0.62);
-  --text-faint: rgba(10, 10, 10, 0.45);
+  --border: #ebebed;
+
+  /* Derived — recompute automatically when a primitive changes. */
+  --base-2: color-mix(in srgb, var(--base), var(--text) 4%);
+  --border-strong: color-mix(in srgb, var(--border), var(--text) 12%);
+  --accent-soft: color-mix(in srgb, var(--accent) 16%, transparent);
+  --text-muted: color-mix(in srgb, var(--text) 62%, transparent);
+  --text-faint: color-mix(in srgb, var(--text) 45%, transparent);
 
   --shadow-sm: 0 1px 2px rgba(9, 9, 11, 0.05);
   --shadow-md: 0 10px 30px -12px rgba(9, 9, 11, 0.16);
@@ -35,7 +35,7 @@ body {
   margin: 0;
   background-color: var(--base);
   color: var(--text);
-  font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+  font-family: var(--ui-font, var(--font-sans)), ui-sans-serif, system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
@@ -69,12 +69,12 @@ body {
 
 /* Card / panel surface */
 .glass {
-  background: #ffffff;
+  background: var(--panel);
   border: 1px solid var(--border);
   box-shadow: var(--shadow-sm);
 }
 .glass-strong {
-  background: rgba(255, 255, 255, 0.82);
+  background: color-mix(in srgb, var(--panel) 82%, transparent);
   border: 1px solid var(--border);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
@@ -90,7 +90,7 @@ body {
 
 /* Cyan accent gradient for headline emphasis */
 .accent-gradient {
-  background: linear-gradient(120deg, #43e1f0 0%, #14b6cc 100%);
+  background: linear-gradient(120deg, var(--accent) 0%, var(--accent-strong) 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -124,9 +124,9 @@ body {
 }
 .card-hover:hover {
   transform: translateY(-4px);
-  border-color: rgba(67, 225, 240, 0.55);
+  border-color: color-mix(in srgb, var(--accent) 55%, transparent);
   box-shadow:
-    0 12px 34px -14px rgba(67, 225, 240, 0.3),
+    0 12px 34px -14px color-mix(in srgb, var(--accent) 30%, transparent),
     var(--shadow-md);
 }
 
@@ -147,7 +147,7 @@ body {
 .aurora__blob--1 {
   width: 46vw;
   height: 46vw;
-  background: radial-gradient(circle, rgba(67, 225, 240, 0.16), transparent 70%);
+  background: radial-gradient(circle, color-mix(in srgb, var(--accent) 16%, transparent), transparent 70%);
   top: -14%;
   left: -6%;
   animation: drift1 28s ease-in-out infinite;
@@ -155,7 +155,7 @@ body {
 .aurora__blob--2 {
   width: 40vw;
   height: 40vw;
-  background: radial-gradient(circle, rgba(67, 225, 240, 0.08), transparent 70%);
+  background: radial-gradient(circle, color-mix(in srgb, var(--accent) 8%, transparent), transparent 70%);
   bottom: -16%;
   right: -8%;
   animation: drift2 34s ease-in-out infinite;

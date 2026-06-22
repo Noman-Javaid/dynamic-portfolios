@@ -95,7 +95,7 @@ function StackHeroContent({ stack, person }: { stack: Stack; person: Person }) {
           <Magnetic className="w-full sm:w-auto">
             <a
               href={`mailto:${person.email}`}
-              className="flex w-full items-center justify-center gap-2 rounded-xl bg-[#43e1f0] px-6 py-3.5 font-semibold text-zinc-950 shadow-[0_8px_24px_-8px_rgba(67,225,240,0.6)] transition-all duration-300 hover:bg-[#2fd6e8] hover:shadow-[0_10px_30px_-8px_rgba(67,225,240,0.8)] sm:w-auto sm:px-7"
+              className="flex w-full items-center justify-center gap-2 rounded-xl bg-[var(--accent)] px-6 py-3.5 font-semibold text-zinc-950 shadow-[0_8px_24px_-8px_color-mix(in_srgb,var(--accent)_60%,transparent)] transition-all duration-300 hover:bg-[var(--accent-strong)] hover:shadow-[0_10px_30px_-8px_color-mix(in_srgb,var(--accent)_80%,transparent)] sm:w-auto sm:px-7"
             >
               <Mail className="h-4 w-4" />
               Contact Me

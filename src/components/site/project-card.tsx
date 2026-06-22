@@ -14,7 +14,7 @@ export function ProjectCard({ project }: { project: ProjectItem }) {
             target="_blank"
             rel="noopener noreferrer"
             aria-label={`Visit ${project.name}`}
-            className="mt-0.5 grid h-8 w-8 shrink-0 place-items-center rounded-lg border border-zinc-200 bg-zinc-50 text-zinc-400 transition-colors duration-300 hover:border-[#43e1f0]/50 hover:text-[#14b6cc]"
+            className="mt-0.5 grid h-8 w-8 shrink-0 place-items-center rounded-lg border border-zinc-200 bg-zinc-50 text-zinc-400 transition-colors duration-300 hover:border-[color-mix(in_srgb,var(--accent)_50%,transparent)] hover:text-[var(--accent-strong)]"
           >
             <ExternalLink className="h-4 w-4" />
           </a>

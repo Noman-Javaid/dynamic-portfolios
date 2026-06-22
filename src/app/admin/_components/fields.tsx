@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 
 const inputCls =
-  "w-full rounded-lg border border-zinc-300 bg-white px-3 py-2 text-sm text-zinc-900 outline-none focus:border-[#43e1f0] focus:ring-2 focus:ring-[#43e1f0]/30";
+  "w-full rounded-lg border border-zinc-300 bg-white px-3 py-2 text-sm text-zinc-900 outline-none focus:border-[var(--accent)] focus:ring-2 focus:ring-[color-mix(in_srgb,var(--accent)_30%,transparent)]";
 
 function Label({ label, required }: { label: string; required?: boolean }) {
   return (
@@ -97,14 +97,14 @@ export function CheckboxGroup({
         {options.map((o) => (
           <label
             key={o.id}
-            className="inline-flex cursor-pointer items-center gap-2 rounded-lg border border-zinc-300 px-3 py-1.5 text-sm text-zinc-700 transition-colors hover:border-zinc-400 has-checked:border-[#43e1f0] has-checked:bg-[#43e1f0]/10"
+            className="inline-flex cursor-pointer items-center gap-2 rounded-lg border border-zinc-300 px-3 py-1.5 text-sm text-zinc-700 transition-colors hover:border-zinc-400 has-checked:border-[var(--accent)] has-checked:bg-[color-mix(in_srgb,var(--accent)_10%,transparent)]"
           >
             <input
               type="checkbox"
               name={name}
               value={o.id}
               defaultChecked={selected.includes(o.id)}
-              className="accent-[#43e1f0]"
+              className="accent-[var(--accent)]"
             />
             {o.name}
           </label>

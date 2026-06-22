@@ -1,5 +1,34 @@
 import "server-only";
 import { supabaseAdmin } from "./client";
+import { mergeTokens, type ThemeTokens } from "@/lib/theme";
+
+export interface ThemeRow {
+  id: string;
+  name: string;
+  slug: string;
+  tokens: ThemeTokens;
+  is_preset: boolean;
+  sort_order: number;
+}
+
+export async function listThemes(): Promise<{
+  themes: ThemeRow[];
+  activeId: string | null;
+}> {
+  const db = supabaseAdmin();
+  const [{ data: themes, error }, { data: profile }] = await Promise.all([
+    db.from("themes").select("id, name, slug, tokens, is_preset, sort_order").order("sort_order"),
+    db.from("profile").select("active_theme_id").eq("id", 1).maybeSingle(),
+  ]);
+  if (error) throw error;
+
+  return {
+    themes: ((themes ?? []) as { id: string; name: string; slug: string; tokens: Partial<ThemeTokens>; is_preset: boolean; sort_order: number }[]).map(
+      (t) => ({ ...t, tokens: mergeTokens(t.tokens) })
+    ),
+    activeId: (profile as { active_theme_id: string | null } | null)?.active_theme_id ?? null,
+  };
+}
 
 export interface StackRow {
   id: string;

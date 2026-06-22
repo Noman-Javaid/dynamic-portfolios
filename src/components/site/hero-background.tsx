@@ -34,8 +34,8 @@ function webglAvailable(): boolean {
 function LightMesh() {
   return (
     <div className="absolute inset-0 bg-white">
-      <div className="absolute -left-[10%] -top-[22%] h-[62vmax] w-[62vmax] rounded-full bg-[radial-gradient(circle,rgba(67,225,240,0.26),transparent_60%)] blur-3xl" />
-      <div className="absolute -right-[12%] top-[2%] h-[54vmax] w-[54vmax] rounded-full bg-[radial-gradient(circle,rgba(67,225,240,0.16),transparent_60%)] blur-3xl" />
+      <div className="absolute -left-[10%] -top-[22%] h-[62vmax] w-[62vmax] rounded-full bg-[radial-gradient(circle,color-mix(in_srgb,var(--accent)_26%,transparent),transparent_60%)] blur-3xl" />
+      <div className="absolute -right-[12%] top-[2%] h-[54vmax] w-[54vmax] rounded-full bg-[radial-gradient(circle,color-mix(in_srgb,var(--accent)_16%,transparent),transparent_60%)] blur-3xl" />
       <div className="absolute bottom-[-28%] left-[28%] h-[50vmax] w-[50vmax] rounded-full bg-[radial-gradient(circle,rgba(125,211,252,0.16),transparent_60%)] blur-3xl" />
       <div className="absolute inset-0 grid-overlay opacity-70" />
     </div>

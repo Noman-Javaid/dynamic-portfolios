@@ -5,7 +5,7 @@ import Link from "next/link";
 import { generatePortfolio, type GenerateState } from "@server/actions/generate";
 
 const textareaCls =
-  "w-full resize-y rounded-xl border border-zinc-300 bg-white px-4 py-3 text-sm text-zinc-900 outline-none focus:border-[#43e1f0] focus:ring-2 focus:ring-[#43e1f0]/30";
+  "w-full resize-y rounded-xl border border-zinc-300 bg-white px-4 py-3 text-sm text-zinc-900 outline-none focus:border-[var(--accent)] focus:ring-2 focus:ring-[color-mix(in_srgb,var(--accent)_30%,transparent)]";
 
 function ResultCard({ state }: { state: Extract<GenerateState, { ok: true }> }) {
   return (
@@ -85,7 +85,7 @@ export function GeneratePanel() {
           <button
             type="submit"
             disabled={pending}
-            className="rounded-lg bg-[#43e1f0] px-5 py-2.5 text-sm font-semibold text-zinc-950 transition-colors hover:bg-[#2fd6e8] disabled:opacity-60"
+            className="rounded-lg bg-[var(--accent)] px-5 py-2.5 text-sm font-semibold text-zinc-950 transition-colors hover:bg-[var(--accent-strong)] disabled:opacity-60"
           >
             {pending ? "Generating…" : "Generate portfolio"}
           </button>

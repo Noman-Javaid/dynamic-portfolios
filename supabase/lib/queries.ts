@@ -6,6 +6,25 @@ import type {
   ExperienceItem,
   ProjectItem,
 } from "@/data/portfolio";
+import { mergeTokens, type ThemeTokens } from "@/lib/theme";
+
+export async function getActiveThemeTokens(): Promise<ThemeTokens> {
+  const { data: profile } = await supabasePublic()
+    .from("profile")
+    .select("active_theme_id")
+    .eq("id", 1)
+    .maybeSingle<{ active_theme_id: string | null }>();
+
+  if (!profile?.active_theme_id) return mergeTokens();
+
+  const { data: theme } = await supabasePublic()
+    .from("themes")
+    .select("tokens")
+    .eq("id", profile.active_theme_id)
+    .maybeSingle<{ tokens: Partial<ThemeTokens> }>();
+
+  return mergeTokens(theme?.tokens);
+}
 
 interface ProfileRow {
   name: string;
