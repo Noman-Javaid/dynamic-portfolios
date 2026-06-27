@@ -1,81 +1,116 @@
 import type { ExperienceItem } from "@/data/portfolio";
 
-function hashStr(s: string): number {
-  let h = 2166136261;
-  for (let i = 0; i < s.length; i++) {
-    h ^= s.charCodeAt(i);
-    h = Math.imul(h, 16777619);
-  }
-  return h >>> 0;
+const MONTHS: Record<string, number> = {
+  jan: 0,
+  feb: 1,
+  mar: 2,
+  apr: 3,
+  may: 4,
+  jun: 5,
+  jul: 6,
+  aug: 7,
+  sep: 8,
+  oct: 9,
+  nov: 10,
+  dec: 11,
+};
+
+const ONGOING = /^(present|current|now|continue)$/i;
+
+function isOngoingPeriod(period: string): boolean {
+  const parts = period
+    .split(/\s*[-–—]\s*/)
+    .map((part) => part.trim())
+    .filter(Boolean);
+  if (parts.length < 2) return false;
+  return ONGOING.test(parts[parts.length - 1]);
 }
 
-function mulberry32(seed: number): () => number {
-  let a = seed;
-  return () => {
-    a |= 0;
-    a = (a + 0x6d2b79f5) | 0;
-    let t = Math.imul(a ^ (a >>> 15), 1 | a);
-    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
-    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+interface ParsedPeriod {
+  start: Date;
+  end: Date;
+  tenureYears: number;
+}
+
+function parseMonthYear(value: string): Date | null {
+  const trimmed = value.trim();
+
+  const monthYear = trimmed.match(/^([a-z]+)\s+(\d{4})$/i);
+  if (monthYear) {
+    const month = MONTHS[monthYear[1].slice(0, 3).toLowerCase()];
+    if (month !== undefined) {
+      return new Date(Number(monthYear[2]), month, 1);
+    }
+  }
+
+  const yearOnly = trimmed.match(/^(\d{4})$/);
+  if (yearOnly) {
+    return new Date(Number(yearOnly[1]), 0, 1);
+  }
+
+  return null;
+}
+
+function parsePeriod(period: string): ParsedPeriod | null {
+  const parts = period
+    .split(/\s*[-–—]\s*/)
+    .map((part) => part.trim())
+    .filter(Boolean);
+
+  if (parts.length === 0) return null;
+
+  const start = parseMonthYear(parts[0]);
+  if (!start) return null;
+
+  const endRaw = parts.length >= 2 ? parts[parts.length - 1] : parts[0];
+  const end = ONGOING.test(endRaw) ? new Date() : parseMonthYear(endRaw);
+  if (!end) return null;
+
+  const [rangeStart, rangeEnd] = start <= end ? [start, end] : [end, start];
+  const months =
+    (rangeEnd.getFullYear() - rangeStart.getFullYear()) * 12 +
+    (rangeEnd.getMonth() - rangeStart.getMonth());
+
+  return {
+    start: rangeStart,
+    end: rangeEnd,
+    tenureYears: Math.max(1, Math.round(months / 12) || 1),
   };
 }
 
-const END_YEAR = 2026;
-const START_YEAR = 2015;
-
 /**
- * Hides real tenure: deterministically redistributes the END_YEAR..START_YEAR
- * span across the experiences (each at least 1 year), sorts them
- * highest-to-lowest, then lays out contiguous year ranges from most recent
- * (END_YEAR) back to START_YEAR. Same input → same output, so the frontend
- * timeline and the CV stay in sync.
+ * Orders experience for display using each entry's admin "Period" field.
+ * Keeps the stored period text as-is. Ongoing roles (Continue, Present, etc.)
+ * always appear first, then longest-tenure first, then most-recent end date.
+ * Unparseable periods keep their input order at the bottom.
  */
 export function arrangeExperience(items: ExperienceItem[]): ExperienceItem[] {
-  const n = items.length;
-  if (n === 0) return [];
+  const indexed = items.map((exp, index) => {
+    const parsed = parsePeriod(exp.period);
+    return { exp, parsed, ongoing: isOngoingPeriod(exp.period), index };
+  });
 
-  const rng = mulberry32(hashStr(items.map((e) => `${e.company}|${e.role}`).join("~")));
-  const total = END_YEAR - START_YEAR;
+  return indexed
+    .sort((a, b) => {
+      if (a.ongoing !== b.ongoing) return a.ongoing ? -1 : 1;
 
-  let years: number[];
-  if (n >= total) {
-    years = items.map(() => 1);
-  } else {
-    const weights = items.map(() => rng() * 0.9 + 0.1);
-    const wsum = weights.reduce((a, b) => a + b, 0);
-    years = weights.map((w) => Math.max(1, Math.floor((w / wsum) * total)));
-
-    let diff = total - years.reduce((a, b) => a + b, 0);
-    while (diff > 0) {
-      const idx = years.indexOf(Math.max(...years));
-      years[idx]++;
-      diff--;
-    }
-    while (diff < 0) {
-      let idx = -1;
-      let min = Infinity;
-      for (let i = 0; i < n; i++) {
-        if (years[i] > 1 && years[i] < min) {
-          min = years[i];
-          idx = i;
+      if (a.parsed && b.parsed) {
+        if (a.ongoing && b.ongoing) {
+          const byStart = b.parsed.start.getTime() - a.parsed.start.getTime();
+          if (byStart !== 0) return byStart;
         }
+
+        const byTenure = b.parsed.tenureYears - a.parsed.tenureYears;
+        if (byTenure !== 0) return byTenure;
+
+        const byEnd = b.parsed.end.getTime() - a.parsed.end.getTime();
+        if (byEnd !== 0) return byEnd;
       }
-      if (idx === -1) break;
-      years[idx]--;
-      diff++;
-    }
-  }
 
-  const sorted = items
-    .map((exp, i) => ({ exp, years: years[i] }))
-    .sort((a, b) => b.years - a.years);
+      if (a.parsed && !b.parsed) return -1;
+      if (!a.parsed && b.parsed) return 1;
 
-  let end = END_YEAR;
-  const out: ExperienceItem[] = [];
-  for (const { exp, years: y } of sorted) {
-    const start = end - y;
-    out.push({ ...exp, period: `${start} – ${end}` });
-    end = start;
-  }
-  return out;
+      return a.index - b.index;
+    })
+    .map(({ exp }) => exp);
 }
