@@ -36,6 +36,8 @@ interface ProfileRow {
   github_label: string | null;
   linkedin: string | null;
   linkedin_label: string | null;
+  portfolio: string | null;
+  portfolio_label: string | null;
   location: string | null;
   availability: string | null;
   education: string | null;
@@ -155,6 +157,8 @@ export async function getProfile(): Promise<Person | null> {
     githubLabel: data.github_label ?? "",
     linkedin: data.linkedin ?? "",
     linkedinLabel: data.linkedin_label ?? "",
+    portfolio: data.portfolio ?? "",
+    portfolioLabel: data.portfolio_label ?? "",
     location: data.location ?? "",
     availability: data.availability ?? "",
     education: data.education ?? "",

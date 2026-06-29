@@ -90,6 +90,8 @@ export async function updateProfile(
       github_label: str(formData.get("github_label")),
       linkedin: str(formData.get("linkedin")),
       linkedin_label: str(formData.get("linkedin_label")),
+      portfolio: str(formData.get("portfolio")),
+      portfolio_label: str(formData.get("portfolio_label")),
       location: str(formData.get("location")),
       availability: str(formData.get("availability")),
       education: str(formData.get("education")),

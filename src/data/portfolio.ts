@@ -13,6 +13,8 @@ export interface Person {
   githubLabel: string;
   linkedin: string;
   linkedinLabel: string;
+  portfolio: string;
+  portfolioLabel: string;
   location: string;
   availability: string;
   education: string;
@@ -32,6 +34,8 @@ export const person: Person = {
   githubLabel: "github.com/ammar-hassan",
   linkedin: "https://linkedin.com/in/ammar-hassan",
   linkedinLabel: "linkedin.com/in/ammar-hassan",
+  portfolio: "",
+  portfolioLabel: "",
   location: "Lahore, Pakistan",
   availability: "Available for senior / staff engineering roles",
   stats: [

@@ -1,4 +1,4 @@
-import { Mail } from "lucide-react";
+import { Globe, Mail } from "lucide-react";
 import type { Person } from "@/data/portfolio";
 
 function GithubIcon({ className }: { className?: string }) {
@@ -18,7 +18,7 @@ function LinkedinIcon({ className }: { className?: string }) {
 }
 
 interface SocialLinksProps {
-  person: Pick<Person, "email" | "github" | "linkedin">;
+  person: Pick<Person, "email" | "github" | "linkedin" | "portfolio">;
   className?: string;
   iconClassName?: string;
 }
@@ -32,6 +32,7 @@ export function SocialLinks({
     { href: `mailto:${person.email}`, label: "Email", node: <Mail className={iconClassName} /> },
     { href: person.github, label: "GitHub", node: <GithubIcon className={iconClassName} /> },
     { href: person.linkedin, label: "LinkedIn", node: <LinkedinIcon className={iconClassName} /> },
+    { href: person.portfolio, label: "Portfolio", node: <Globe className={iconClassName} /> },
   ].filter((l) => Boolean(l.href));
 
   return (

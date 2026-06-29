@@ -19,6 +19,8 @@ const FALLBACK_PERSON: Person = {
   githubLabel: "",
   linkedin: "",
   linkedinLabel: "",
+  portfolio: "",
+  portfolioLabel: "",
   location: "",
   availability: "",
   education: "",

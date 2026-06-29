@@ -40,6 +40,12 @@ export default async function ProfilePage() {
           name="linkedin_label"
           defaultValue={profile?.linkedinLabel}
         />
+        <Field label="Portfolio URL" name="portfolio" defaultValue={profile?.portfolio} />
+        <Field
+          label="Portfolio label"
+          name="portfolio_label"
+          defaultValue={profile?.portfolioLabel}
+        />
         <Field
           label="Availability"
           name="availability"

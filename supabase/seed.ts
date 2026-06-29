@@ -30,6 +30,8 @@ async function seedProfile() {
       github_label: person.githubLabel,
       linkedin: person.linkedin,
       linkedin_label: person.linkedinLabel,
+      portfolio: person.portfolio,
+      portfolio_label: person.portfolioLabel,
       location: person.location,
       availability: person.availability,
       education: person.education,

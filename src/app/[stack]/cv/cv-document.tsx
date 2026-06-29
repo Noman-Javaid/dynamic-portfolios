@@ -109,6 +109,7 @@ function CvDocument({ stack, person }: { stack: Stack; person: Person }) {
     person.location,
     person.githubLabel || person.github,
     person.linkedinLabel || person.linkedin,
+    person.portfolioLabel || person.portfolio,
   ]
     .filter(Boolean)
     .join("   |   ");
