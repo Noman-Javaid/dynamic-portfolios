@@ -102,14 +102,31 @@ function Section({ title, show, children }: { title: string; show: boolean; chil
   );
 }
 
-function CvDocument({ stack, person }: { stack: Stack; person: Person }) {
+function portfolioDisplay(url: string): string {
+  try {
+    const { host, pathname } = new URL(url);
+    const path = pathname.replace(/\/$/, "");
+    return path && path !== "/" ? `${host}${path}` : host;
+  } catch {
+    return url;
+  }
+}
+
+function CvDocument({
+  stack,
+  person,
+  portfolioUrl,
+}: {
+  stack: Stack;
+  person: Person;
+  portfolioUrl: string;
+}) {
   const role = stack.name ? `${stack.name} Engineer` : person.title;
   const contact = [
     person.email,
     person.location,
     person.githubLabel || person.github,
-    person.linkedinLabel || person.linkedin,
-    person.portfolioLabel || person.portfolio,
+    portfolioDisplay(portfolioUrl),
   ]
     .filter(Boolean)
     .join("   |   ");
@@ -180,6 +197,12 @@ function CvDocument({ stack, person }: { stack: Stack; person: Person }) {
   );
 }
 
-export function renderCvPdf(stack: Stack, person: Person): Promise<Buffer> {
-  return renderToBuffer(<CvDocument stack={stack} person={person} />);
+export function renderCvPdf(
+  stack: Stack,
+  person: Person,
+  portfolioUrl: string
+): Promise<Buffer> {
+  return renderToBuffer(
+    <CvDocument stack={stack} person={person} portfolioUrl={portfolioUrl} />
+  );
 }

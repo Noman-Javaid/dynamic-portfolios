@@ -5,7 +5,7 @@ export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
 
 export async function GET(
-  _req: Request,
+  req: Request,
   ctx: { params: Promise<{ stack: string }> }
 ) {
   const { stack: slug } = await ctx.params;
@@ -14,7 +14,8 @@ export async function GET(
     return new Response("Not found", { status: 404 });
   }
 
-  const pdf = await renderCvPdf(stack, person);
+  const portfolioUrl = new URL(`/${slug}`, new URL(req.url).origin).href;
+  const pdf = await renderCvPdf(stack, person, portfolioUrl);
 
   const filename =
     `${person.name} - ${stack.name} CV`

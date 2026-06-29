@@ -8,7 +8,7 @@ export default async function Home() {
   const stacks = await getStacks();
   if (stacks.length === 0) notFound();
 
-  const preferred = stacks.find((s) => /default/i.test(s.slug)) ?? stacks[0];
+  const preferred = stacks.find((s) => /portfolio/i.test(s.slug)) ?? stacks[0];
 
   const [data, profile] = await Promise.all([
     getStackBySlug(preferred.slug),
