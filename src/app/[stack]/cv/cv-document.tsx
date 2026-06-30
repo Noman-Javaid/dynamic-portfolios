@@ -125,7 +125,7 @@ function CvDocument({
   const contact = [
     person.email,
     person.location,
-    person.githubLabel || person.github,
+    person.github,
     portfolioDisplay(portfolioUrl),
   ]
     .filter(Boolean)
